@@ -1,0 +1,12 @@
+{
+  "name": "futurelens",
+  "version": "1.0.0",
+  "description": "AI-powered student future exploration and decision support",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
