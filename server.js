@@ -139,4 +139,6 @@ const server = http.createServer(async (request, response) => {
   else sendJson(response, 405, { message: "Method not allowed" });
 });
 
-server.listen(PORT, () => console.log(`FutureLens is running at http://localhost:${PORT}`));
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`FutureLens is running on port ${PORT}`);
+});
