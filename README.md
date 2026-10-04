@@ -90,7 +90,7 @@ Requirements: Node.js 18 or later. The project uses Node's built-in server and `
 node server.js
 ```
 
-Open <http://localhost:3000>. To use another port, set `PORT` before starting the server.
+Open < http://localhost:3000>. To use another port, set `PORT` before starting the server.
 
 ### Optional AI analysis
 
@@ -98,7 +98,7 @@ Copy `.env.example` to `.env` and set a server-side `OPENAI_API_KEY`. `AI_MODEL`
 
 ## Judge demo
 
-1. Start the local server and open <http://localhost:3000>.
+1. Start the local server and open < http://localhost:3000>.
 2. Select **Try Live Demo** on the landing page. FutureLens enters a sample student profile and runs the normal onboarding and simulation flow.
 3. Explore and compare the modeled paths, then try changing weekly hours, consistency, or project count in What-If.
 4. Use **Reset Demo** to rerun the sample or **Exit Demo** to clear the sample session.
