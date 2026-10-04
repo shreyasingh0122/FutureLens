@@ -1,0 +1,3326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FutureLens — Explore What Happens Next</title>
+
+    <meta
+        name="description"
+        content="FutureLens helps you simulate possible outcomes before making important decisions."
+    >
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- ================= ONBOARDING DISPLAY FIX ================= -->
+    <style>
+        .onboarding-section {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .onboarding-section.active,
+        .onboarding-section.visible {
+            display: block;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="background">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="grid-background"></div>
+    </div>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+        <div class="nav-container">
+
+            <a href="#" class="logo">
+                <span class="logo-icon">
+                    <i class="ri-focus-3-line"></i>
+                </span>
+                <span>Future<span>Lens</span></span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#how-it-works">How it works</a>
+                <a href="#simulator">Scenarios</a>
+                <a href="#features">Features</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="login-btn" id="loginTrigger" type="button" data-auth-action="signin">Sign in</button>
+                <button class="nav-auth-create" type="button" data-auth-action="create">Create Account</button>
+                <button class="account-trigger" id="accountTrigger" type="button" aria-haspopup="true" aria-controls="accountMenu" aria-expanded="false" hidden></button>
+                <div class="account-menu" id="accountMenu" role="group" aria-label="Account actions" hidden>
+                    <span class="account-menu-note">Local demo account</span>
+                    <button type="button" data-auth-action="signout">Sign out</button>
+                </div>
+                <button class="nav-cta" id="startNavBtn" type="button" data-open-modal>
+                    Start exploring
+                    <i class="ri-arrow-right-line"></i>
+                </button>
+            </div>
+
+            <button class="menu-btn" id="menuBtn">
+                <i class="ri-menu-4-line"></i>
+            </button>
+
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#how-it-works">How it works</a>
+            <a href="#simulator">Scenarios</a>
+            <a href="#features">Features</a>
+            <button class="mobile-auth-signin" type="button" data-auth-action="signin">Sign in</button>
+            <button class="mobile-auth-create" type="button" data-auth-action="create">Create Account</button>
+            <span class="mobile-account-name" id="mobileAccountName" hidden></span>
+            <button class="mobile-auth-signout" type="button" data-auth-action="signout" hidden>Sign out</button>
+            <button id="mobileStart" type="button" data-open-modal>Start exploring</button>
+        </div>
+    </header>
+
+
+    <main>
+
+        <!-- ================= HERO ================= -->
+
+        <section class="hero section">
+
+            <div class="hero-content reveal">
+
+                <div class="eyebrow">
+                    <span class="pulse-dot"></span>
+                    Explore modeled futures before deciding
+                </div>
+
+                <h1>
+                    See where your
+                    <span>choices could take you.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Turn your goals, skills and constraints into interactive future scenarios. Compare the trade-offs, see what could change, and choose a next step with more clarity.
+                </p>
+
+                <div class="hero-buttons">
+                    <button class="primary-btn demo-cta" id="startDemoBtn" type="button">
+                        <i class="ri-rocket-2-line"></i>
+                        Try Live Demo
+                    </button>
+
+                    <button class="primary-btn" id="heroStartBtn" type="button" data-open-modal>
+                        Explore your future
+                        <i class="ri-arrow-right-line"></i>
+                    </button>
+
+                    <button class="secondary-btn" id="seeDemoBtn">
+                        <i class="ri-play-circle-line"></i>
+                        See how it works
+                    </button>
+                </div>
+                <div class="demo-launch-status" id="demoLaunchStatus" role="status" aria-live="polite" hidden>
+                    <span class="demo-launch-message" id="demoLaunchMessage">Preparing your demo future…</span>
+                    <button class="secondary-btn" id="retryDemo" type="button" hidden>Retry demo</button>
+                </div>
+
+                <div class="hero-trust">
+
+                    <div class="avatars">
+                        <span>AS</span>
+                        <span>RK</span>
+                        <span>MK</span>
+                        <span>+</span>
+                    </div>
+
+                    <div>
+                        <strong>Explore before you decide</strong>
+                        <small>Model-based scenarios • Explainable outcomes</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- HERO VISUAL -->
+
+            <div class="hero-visual reveal">
+
+                <div class="visual-glow"></div>
+
+                <div class="future-card">
+
+                    <div class="future-card-header">
+                        <div>
+                            <span class="small-label">
+                                <i class="ri-sparkling-2-line"></i>
+                                FUTURE SIMULATION
+                            </span>
+
+                            <h3>Your possible futures</h3>
+                        </div>
+
+                        <span class="live-status">
+                            <span></span>
+                            Live
+                        </span>
+                    </div>
+
+
+                    <!-- Tree -->
+
+                    <div class="future-tree">
+
+                        <div class="tree-center">
+                            <div class="center-icon">
+                                <i class="ri-user-3-line"></i>
+                            </div>
+
+                            <span>YOU</span>
+                            <small>Today</small>
+                        </div>
+
+
+                        <div class="tree-line line-a"></div>
+                        <div class="tree-line line-b"></div>
+                        <div class="tree-line line-c"></div>
+
+
+                        <div class="future-node node-a">
+                            <div class="node-icon">
+                                <i class="ri-code-s-slash-line"></i>
+                            </div>
+                            <strong>DSA Focus</strong>
+                            <span>Interview Ready</span>
+                            <b>82%</b>
+                        </div>
+
+                        <div class="future-node node-b">
+                            <div class="node-icon">
+                                <i class="ri-brain-line"></i>
+                            </div>
+                            <strong>ML Focus</strong>
+                            <span>AI Specialist</span>
+                            <b>76%</b>
+                        </div>
+
+                        <div class="future-node node-c">
+                            <div class="node-icon">
+                                <i class="ri-scales-3-line"></i>
+                            </div>
+                            <strong>Balanced</strong>
+                            <span>Versatile Path</span>
+                            <b>88%</b>
+                        </div>
+
+                    </div>
+
+
+                    <div class="simulation-bottom">
+
+                        <div>
+                            <span>Simulation confidence</span>
+                            <strong>84%</strong>
+                        </div>
+
+                        <div class="confidence-bar">
+                            <span></span>
+                        </div>
+
+                        <small>
+                            Based on your inputs & assumptions
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TRUST STRIP ================= -->
+
+        <section class="trust-strip">
+            <div class="trust-inner">
+
+                <span>BUILT FOR DECISIONS THAT MATTER</span>
+
+                <div class="trust-items">
+                    <div>
+                        <i class="ri-graduation-cap-line"></i>
+                        Career
+                    </div>
+
+                    <div>
+                        <i class="ri-rocket-line"></i>
+                        Startups
+                    </div>
+
+                    <div>
+                        <i class="ri-leaf-line"></i>
+                        Sustainability
+                    </div>
+
+                    <div>
+                        <i class="ri-line-chart-line"></i>
+                        Planning
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= HOW IT WORKS ================= -->
+
+        <section class="section how-section" id="how-it-works">
+
+            <div class="section-heading reveal">
+
+                <div class="eyebrow">
+                    <span class="number">01</span>
+                    HOW IT WORKS
+                </div>
+
+                <h2>
+                    From one decision to
+                    <span>multiple possibilities.</span>
+                </h2>
+
+                <p>
+                    FutureLens doesn't tell you what to choose.
+                    It helps you understand what different choices could lead to.
+                </p>
+
+            </div>
+
+
+            <div class="steps-grid">
+
+                <div class="step-card reveal">
+
+                    <div class="step-number">01</div>
+
+                    <div class="step-icon">
+                        <i class="ri-user-settings-line"></i>
+                    </div>
+
+                    <h3>Define your situation</h3>
+
+                    <p>
+                        Tell FutureLens about your goal, current state,
+                        priorities and available resources.
+                    </p>
+
+                    <span class="step-tag">Your starting point</span>
+
+                </div>
+
+
+                <div class="step-card reveal">
+
+                    <div class="step-number">02</div>
+
+                    <div class="step-icon">
+                        <i class="ri-git-branch-line"></i>
+                    </div>
+
+                    <h3>Generate scenarios</h3>
+
+                    <p>
+                        Explore different strategies based on the choices
+                        available to you.
+                    </p>
+
+                    <span class="step-tag">Alternative paths</span>
+
+                </div>
+
+
+                <div class="step-card reveal">
+
+                    <div class="step-number">03</div>
+
+                    <div class="step-icon">
+                        <i class="ri-pulse-line"></i>
+                    </div>
+
+                    <h3>Simulate outcomes</h3>
+
+                    <p>
+                        See how changing your decisions could influence
+                        different future outcomes.
+                    </p>
+
+                    <span class="step-tag">What-if engine</span>
+
+                </div>
+
+
+                <div class="step-card reveal">
+
+                    <div class="step-number">04</div>
+
+                    <div class="step-icon">
+                        <i class="ri-bar-chart-grouped-line"></i>
+                    </div>
+
+                    <h3>Explore & compare</h3>
+
+                    <p>
+                        Compare trade-offs and understand why each future
+                        looks different.
+                    </p>
+
+                    <span class="step-tag">Make informed choices</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= INTERACTIVE SIMULATOR ================= -->
+
+        <section class="section simulator-section" id="simulator">
+
+            <div class="section-heading centered reveal">
+
+                <div class="eyebrow">
+                    <span class="number">02</span>
+                    TRY THE SIMULATOR
+                </div>
+
+                <h2>
+                    What could your
+                    <span>future look like?</span>
+                </h2>
+
+                <p>
+                    Here's a simple example using career planning.
+                    Adjust your priorities and watch the scenario change.
+                </p>
+
+            </div>
+
+
+            <div class="simulator-wrapper reveal">
+
+                <!-- LEFT -->
+
+                <div class="simulator-controls">
+
+                    <div class="sim-header">
+
+                        <div>
+                            <span class="small-label">YOUR CURRENT PLAN</span>
+                            <h3>Career preparation</h3>
+                        </div>
+
+                        <span class="edit-icon">
+                            <i class="ri-edit-line"></i>
+                        </span>
+
+                    </div>
+
+
+                    <div class="control-group">
+
+                        <div class="control-title">
+                            <div>
+                                <span class="control-icon purple">
+                                    <i class="ri-code-s-slash-line"></i>
+                                </span>
+
+                                <div>
+                                    <strong>DSA practice</strong>
+                                    <small>Interview preparation</small>
+                                </div>
+                            </div>
+
+                            <strong class="range-value" id="dsaSkillValue">40%</strong>
+                        </div>
+
+                        <input
+                            type="range"
+                            id="dsaSlider"
+                            min="10"
+                            max="60"
+                            value="40"
+                        >
+
+                    </div>
+
+
+                    <div class="control-group">
+
+                        <div class="control-title">
+                            <div>
+                                <span class="control-icon blue">
+                                    <i class="ri-brain-line"></i>
+                                </span>
+
+                                <div>
+                                    <strong>ML learning</strong>
+                                    <small>Technical specialization</small>
+                                </div>
+                            </div>
+
+                            <strong class="range-value" id="mlSkillValue">30%</strong>
+                        </div>
+
+                        <div class="fake-range">
+                            <span style="width: 50%;"></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="control-group">
+
+                        <div class="control-title">
+                            <div>
+                                <span class="control-icon cyan">
+                                    <i class="ri-layout-4-line"></i>
+                                </span>
+
+                                <div>
+                                    <strong>Projects</strong>
+                                    <small>Portfolio development</small>
+                                </div>
+                            </div>
+
+                            <strong class="range-value" id="projectValue">30%</strong>
+                        </div>
+
+                        <div class="fake-range">
+                            <span style="width: 50%;"></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="balance-info">
+
+                        <i class="ri-information-line"></i>
+
+                        <p>
+                            Move the DSA slider to see how changing your
+                            priorities affects the simulated outcome.
+                        </p>
+
+                    </div>
+
+
+                    <button class="reset-btn" id="resetSimulator">
+                        <i class="ri-refresh-line"></i>
+                        Reset simulation
+                    </button>
+
+                </div>
+
+
+                <!-- RIGHT -->
+
+                <div class="simulation-result">
+
+                    <div class="result-header">
+
+                        <div>
+                            <span class="small-label">
+                                SIMULATED FUTURE
+                            </span>
+
+                            <h3 id="resultTitle">
+                                Balanced preparation
+                            </h3>
+                        </div>
+
+                        <span class="result-badge">
+                            <i class="ri-sparkling-2-line"></i>
+                            AI Scenario
+                        </span>
+
+                    </div>
+
+
+                    <div class="result-score">
+
+                        <div>
+                            <span>Overall readiness</span>
+
+                            <strong id="readinessScore">
+                                78
+                            </strong>
+
+                            <small>/100</small>
+                        </div>
+
+                        <div class="score-ring">
+                            <svg viewBox="0 0 100 100">
+                                <circle
+                                    class="ring-bg"
+                                    cx="50"
+                                    cy="50"
+                                    r="42"
+                                />
+
+                                <circle
+                                    class="ring-progress"
+                                    id="scoreRing"
+                                    cx="50"
+                                    cy="50"
+                                    r="42"
+                                />
+                            </svg>
+
+                            <span id="ringText">78%</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="metric-grid">
+
+                        <div class="metric-card">
+
+                            <div class="metric-top">
+                                <span class="metric-icon purple">
+                                    <i class="ri-code-box-line"></i>
+                                </span>
+
+                                <span>DSA</span>
+                            </div>
+
+                            <strong id="dsaMetric">82%</strong>
+
+                            <div class="metric-progress">
+                                <span id="dsaProgress"></span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="metric-card">
+
+                            <div class="metric-top">
+                                <span class="metric-icon blue">
+                                    <i class="ri-brain-line"></i>
+                                </span>
+
+                                <span>ML</span>
+                            </div>
+
+                            <strong id="mlMetric">74%</strong>
+
+                            <div class="metric-progress">
+                                <span id="mlProgress"></span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="metric-card">
+
+                            <div class="metric-top">
+                                <span class="metric-icon cyan">
+                                    <i class="ri-folder-chart-line"></i>
+                                </span>
+
+                                <span>Projects</span>
+                            </div>
+
+                            <strong id="projectMetric">84%</strong>
+
+                            <div class="metric-progress">
+                                <span id="projectProgress"></span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="insight-box">
+
+                        <div class="insight-icon">
+                            <i class="ri-lightbulb-flash-line"></i>
+                        </div>
+
+                        <div>
+
+                            <span>WHY THIS CHANGED</span>
+
+                            <p id="insightText">
+                                A balanced allocation keeps your technical
+                                preparation diversified while maintaining
+                                strong portfolio development.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <p class="simulation-note">
+                <i class="ri-shield-check-line"></i>
+                Simulation results are model-based estimates, not guaranteed predictions.
+            </p>
+
+        </section>
+
+
+        <!-- ================= SCENARIOS ================= -->
+
+        <section class="section scenario-section" id="scenarios">
+
+            <div class="scenario-heading reveal">
+
+                <div>
+                    <div class="eyebrow">
+                        <span class="number">03</span>
+                        EXPLORE FUTURES
+                    </div>
+
+                    <h2>
+                        Different choices.
+                        <span>Different futures.</span>
+                    </h2>
+                </div>
+
+                <p>
+                    Compare possible paths and understand the trade-offs
+                    behind each one.
+                </p>
+
+            </div>
+
+
+            <div class="scenario-dashboard reveal">
+
+                <aside class="scenario-sidebar">
+
+                    <span class="sidebar-label">
+                        CAREER SCENARIOS
+                    </span>
+
+                    <button
+                        class="scenario-tab active"
+                        data-scenario="balanced"
+                    >
+                        <span class="tab-icon">
+                            <i class="ri-scales-3-line"></i>
+                        </span>
+
+                        <span>
+                            <strong>Balanced Path</strong>
+                            <small>Well-rounded growth</small>
+                        </span>
+
+                        <i class="ri-arrow-right-s-line"></i>
+                    </button>
+
+
+                    <button
+                        class="scenario-tab"
+                        data-scenario="dsa"
+                    >
+                        <span class="tab-icon">
+                            <i class="ri-code-s-slash-line"></i>
+                        </span>
+
+                        <span>
+                            <strong>DSA Focus</strong>
+                            <small>Interview preparation</small>
+                        </span>
+
+                        <i class="ri-arrow-right-s-line"></i>
+                    </button>
+
+
+                    <button
+                        class="scenario-tab"
+                        data-scenario="ml"
+                    >
+                        <span class="tab-icon">
+                            <i class="ri-brain-line"></i>
+                        </span>
+
+                        <span>
+                            <strong>ML Focus</strong>
+                            <small>Specialization</small>
+                        </span>
+
+                        <i class="ri-arrow-right-s-line"></i>
+                    </button>
+
+
+                    <div class="sidebar-tip">
+
+                        <i class="ri-sparkling-2-line"></i>
+
+                        <div>
+                            <strong>Try changing assumptions</strong>
+
+                            <p>
+                                Your future isn't fixed.
+                                Explore what happens when your priorities change.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </aside>
+
+
+                <div class="scenario-main">
+
+                    <div class="scenario-top">
+
+                        <div>
+
+                            <span class="small-label">
+                                SELECTED SCENARIO
+                            </span>
+
+                            <h3 id="scenarioTitle">
+                                Balanced Path
+                            </h3>
+
+                            <p id="scenarioDescription">
+                                A moderate allocation across DSA, ML and
+                                practical project work.
+                            </p>
+
+                        </div>
+
+                        <div class="scenario-score">
+                            <span>Scenario score</span>
+                            <strong id="scenarioScore">88</strong>
+                            <small>/100</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="trajectory">
+
+                        <div class="chart-header">
+
+                            <div>
+                                <strong>Projected growth trajectory</strong>
+                                <span>6-month simulation</span>
+                            </div>
+
+                            <div class="chart-legend">
+                                <span>
+                                    <i></i>
+                                    Projected
+                                </span>
+
+                                <span>
+                                    <i></i>
+                                    Current
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="chart">
+
+                            <div class="y-axis">
+                                <span>100</span>
+                                <span>75</span>
+                                <span>50</span>
+                                <span>25</span>
+                                <span>0</span>
+                            </div>
+
+                            <div class="chart-area">
+
+                                <div class="chart-grid-line"></div>
+                                <div class="chart-grid-line"></div>
+                                <div class="chart-grid-line"></div>
+                                <div class="chart-grid-line"></div>
+                                <div class="chart-grid-line"></div>
+
+                                <svg
+                                    class="chart-svg"
+                                    viewBox="0 0 700 250"
+                                    preserveAspectRatio="none"
+                                >
+
+                                    <defs>
+
+                                        <linearGradient
+                                            id="chartGradient"
+                                            x1="0"
+                                            y1="0"
+                                            x2="0"
+                                            y2="1"
+                                        >
+
+                                            <stop
+                                                offset="0%"
+                                                stop-opacity=".25"
+                                            />
+
+                                            <stop
+                                                offset="100%"
+                                                stop-opacity="0"
+                                            />
+
+                                        </linearGradient>
+
+                                    </defs>
+
+                                    <path
+                                        id="chartFill"
+                                        class="chart-fill"
+                                        d=""
+                                    ></path>
+
+                                    <path
+                                        id="chartPath"
+                                        class="chart-path"
+                                        d=""
+                                    ></path>
+
+                                </svg>
+
+
+                                <div class="chart-points" id="chartPoints"></div>
+
+                                <div class="x-axis">
+                                    <span>Now</span>
+                                    <span>Month 1</span>
+                                    <span>Month 2</span>
+                                    <span>Month 3</span>
+                                    <span>Month 4</span>
+                                    <span>Month 5</span>
+                                    <span>Month 6</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="scenario-insight">
+
+                        <div class="scenario-insight-icon">
+                            <i class="ri-lightbulb-line"></i>
+                        </div>
+
+                        <div>
+                            <span>SIMULATION INSIGHT</span>
+
+                            <p id="scenarioInsight">
+                                Balanced preparation reduces dependency on
+                                one skill while creating consistent progress
+                                across multiple career dimensions.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= FEATURES ================= -->
+
+        <section class="section features-section" id="features">
+
+            <div class="section-heading centered reveal">
+
+                <div class="eyebrow">
+                    <span class="number">04</span>
+                    BUILT DIFFERENTLY
+                </div>
+
+                <h2>
+                    More than recommendations.
+                    <span>A window into possibilities.</span>
+                </h2>
+
+                <p>
+                    FutureLens combines AI reasoning with simulation,
+                    explainability and interactive exploration.
+                </p>
+
+            </div>
+
+
+            <div class="features-grid">
+
+                <div class="feature-card feature-large reveal">
+
+                    <div class="feature-visual tree-visual">
+
+                        <div class="mini-tree">
+
+                            <div class="mini-root">
+                                <i class="ri-user-line"></i>
+                            </div>
+
+                            <span class="mini-line l1"></span>
+                            <span class="mini-line l2"></span>
+                            <span class="mini-line l3"></span>
+
+                            <div class="mini-node n1">
+                                <i class="ri-code-line"></i>
+                            </div>
+
+                            <div class="mini-node n2">
+                                <i class="ri-brain-line"></i>
+                            </div>
+
+                            <div class="mini-node n3">
+                                <i class="ri-rocket-line"></i>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="feature-content">
+
+                        <span class="feature-label">01</span>
+
+                        <h3>Future Tree</h3>
+
+                        <p>
+                            Visualize multiple possible paths from a single
+                            starting decision and explore how they diverge.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="feature-card reveal">
+
+                    <div class="feature-icon">
+                        <i class="ri-equalizer-3-line"></i>
+                    </div>
+
+                    <span class="feature-label">02</span>
+
+                    <h3>Interactive What-Ifs</h3>
+
+                    <p>
+                        Change an assumption and instantly see how the
+                        simulated outcome responds.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card reveal">
+
+                    <div class="feature-icon">
+                        <i class="ri-question-answer-line"></i>
+                    </div>
+
+                    <span class="feature-label">03</span>
+
+                    <h3>Explainable Outcomes</h3>
+
+                    <p>
+                        Understand not only what changed, but why the
+                        simulation changed.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card reveal">
+
+                    <div class="feature-icon">
+                        <i class="ri-shield-star-line"></i>
+                    </div>
+
+                    <span class="feature-label">04</span>
+
+                    <h3>Uncertainty Aware</h3>
+
+                    <p>
+                        See assumptions and confidence instead of treating
+                        every simulated outcome as certain.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card reveal">
+
+                    <div class="feature-icon">
+                        <i class="ri-sparkling-2-line"></i>
+                    </div>
+
+                    <span class="feature-label">05</span>
+
+                    <h3>AI-Assisted Analysis</h3>
+
+                    <p>
+                        AI helps translate your goals into structured
+                        scenarios and meaningful explanations.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CTA ================= -->
+
+        <section class="section cta-section">
+
+            <div class="cta-card reveal">
+
+                <div class="cta-glow"></div>
+
+                <div class="cta-content">
+
+                    <span class="cta-label">
+                        YOUR NEXT DECISION STARTS HERE
+                    </span>
+
+                    <h2>
+                        What if you could
+                        <span>see the possibilities</span>
+                        first?
+                    </h2>
+
+                    <p>
+                        Explore different paths before committing to one.
+                    </p>
+
+                    <button class="primary-btn" id="ctaBtn">
+                        Start exploring
+                        <i class="ri-arrow-right-line"></i>
+                    </button>
+
+                </div>
+
+                <div class="cta-orbit">
+                    <div class="orbit orbit-one"></div>
+                    <div class="orbit orbit-two"></div>
+                    <div class="orbit-core">
+                        <i class="ri-focus-3-line"></i>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="footer-main">
+
+            <div class="footer-brand">
+
+                <a href="#" class="logo">
+                    <span class="logo-icon">
+                        <i class="ri-focus-3-line"></i>
+                    </span>
+                    <span>Future<span>Lens</span></span>
+                </a>
+
+                <p>
+                    Explore possibilities.
+                    Understand trade-offs.
+                    Decide with clarity.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <strong>Product</strong>
+
+                <a href="#how-it-works">How it works</a>
+                <a href="#scenarios">Scenarios</a>
+                <a href="#features">Features</a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <strong>Explore</strong>
+
+                <a href="#simulator">Career</a>
+                <a href="#simulator">Education</a>
+                <a href="#simulator">Business</a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <strong>Connect</strong>
+
+                <a href="#">About FutureLens</a>
+                <a href="#">Privacy</a>
+                <a href="#">Contact</a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 FutureLens. Built to explore possibilities.
+            </span>
+
+            <span>
+                Prediction ≠ certainty.
+            </span>
+
+        </div>
+
+    </footer>
+    <!-- ================= GOAL MODAL ================= -->
+
+    <div class="modal-overlay" id="modalOverlay">
+
+        <div class="goal-modal">
+
+            <button class="modal-close" id="modalClose" type="button" data-close-modal aria-label="Close">
+                <i class="ri-close-line"></i>
+            </button>
+
+            <div class="modal-progress">
+                <span class="active"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="modal-icon">
+                <i class="ri-focus-3-line"></i>
+            </div>
+
+            <span class="small-label">STEP 01 · DEFINE YOUR GOAL</span>
+
+            <h2 id="goalModalTitle">What are you deciding?</h2>
+
+            <p>
+                Choose an area, define a specific goal, and set the
+                timeline you want FutureLens to explore.
+            </p>
+
+            <div class="goal-domain-grid">
+
+                <button class="goal-domain" type="button" data-goal="career">
+                    <span class="goal-domain-icon">
+                        <i class="ri-graduation-cap-line"></i>
+                    </span>
+                    <span>
+                        <strong>Career & Education</strong>
+                        <small>Skills, internships, studies & more</small>
+                    </span>
+                    <i class="ri-check-line goal-check"></i>
+                </button>
+
+                <button class="goal-domain" type="button" data-goal="startup">
+                    <span class="goal-domain-icon">
+                        <i class="ri-rocket-2-line"></i>
+                    </span>
+                    <span>
+                        <strong>Startup & Business</strong>
+                        <small>Resources, growth & strategy</small>
+                    </span>
+                    <i class="ri-check-line goal-check"></i>
+                </button>
+
+                <button class="goal-domain" type="button" data-goal="sustainability">
+                    <span class="goal-domain-icon">
+                        <i class="ri-leaf-line"></i>
+                    </span>
+                    <span>
+                        <strong>Sustainability</strong>
+                        <small>Resources, impact & efficiency</small>
+                    </span>
+                    <i class="ri-check-line goal-check"></i>
+                </button>
+
+            </div>
+
+            <div class="goal-form">
+
+                <div class="input-group">
+                    <label for="specificGoal">Specific goal</label>
+
+                    <select id="specificGoal" disabled>
+                        <option value="">Select a domain first</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="goalTimeline">Timeline</label>
+
+                    <select id="goalTimeline">
+                        <option value="">Select timeline</option>
+                        <option value="3 months">3 months</option>
+                        <option value="6 months">6 months</option>
+                        <option value="1 year">1 year</option>
+                        <option value="2 years">2 years</option>
+                        <option value="3+ years">3+ years</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <button class="primary-btn goal-continue-btn" id="continueGoal" type="button">
+                Continue
+                <i class="ri-arrow-right-line"></i>
+            </button>
+
+            <p class="goal-validation" id="goalValidation" role="alert" hidden></p>
+
+            <small class="modal-disclaimer">
+                Your choices are used only to create a model-based simulation.
+            </small>
+
+        </div>
+
+    </div>
+
+    <div class="login-overlay" id="loginModal" hidden>
+        <section class="login-dialog" role="dialog" aria-modal="true" aria-labelledby="loginTitle" aria-describedby="loginDescription">
+            <button class="login-close" id="loginClose" type="button" aria-label="Close sign in"><i class="ri-close-line"></i></button>
+            <span class="login-mark"><i class="ri-focus-3-line"></i></span>
+            <span class="small-label">LOCAL DEMO ACCOUNT</span>
+            <div id="signinView">
+                <h2 id="loginTitle">Welcome back</h2>
+                <p id="loginDescription">Sign in to your FutureLens demo account on this browser.</p>
+                <form id="loginForm" novalidate>
+                    <label for="loginEmail">Email</label>
+                    <input id="loginEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" maxlength="254" required aria-describedby="loginEmailError">
+                    <small class="auth-field-error" id="loginEmailError"></small>
+                    <label for="loginPassword">Password</label>
+                    <div class="password-field"><input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Your demo account password" maxlength="128" required aria-describedby="loginPasswordError"><button class="password-toggle" type="button" data-password-toggle="loginPassword" aria-label="Show password" aria-pressed="false">Show</button></div>
+                    <small class="auth-field-error" id="loginPasswordError"></small>
+                    <p class="auth-message" id="loginMessage" role="status" aria-live="polite" hidden></p>
+                    <button class="primary-btn auth-submit" type="submit">Sign in <i class="ri-arrow-right-line"></i></button>
+                </form>
+                <p class="auth-switch">New to FutureLens? <button type="button" data-auth-switch="create">Create an account</button></p>
+            </div>
+            <div id="createAccountView" hidden>
+                <h2 id="createAccountTitle">Create your FutureLens account</h2>
+                <p id="createAccountDescription">Keep a local demo account on this browser and come back to FutureLens later.</p>
+                <form id="createAccountForm" novalidate>
+                    <label for="createName">Full name</label>
+                    <input id="createName" name="name" type="text" autocomplete="name" maxlength="80" required aria-describedby="createNameError">
+                    <small class="auth-field-error" id="createNameError"></small>
+                    <label for="createEmail">Email</label>
+                    <input id="createEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" maxlength="254" required aria-describedby="createEmailError">
+                    <small class="auth-field-error" id="createEmailError"></small>
+                    <label for="createPassword">Password</label>
+                    <div class="password-field"><input id="createPassword" name="new-password" type="password" autocomplete="new-password" minlength="8" maxlength="128" required aria-describedby="createPasswordError"><button class="password-toggle" type="button" data-password-toggle="createPassword" aria-label="Show password" aria-pressed="false">Show</button></div>
+                    <small class="auth-field-error" id="createPasswordError"></small>
+                    <label for="confirmPassword">Confirm password</label>
+                    <div class="password-field"><input id="confirmPassword" name="confirm-password" type="password" autocomplete="new-password" minlength="8" maxlength="128" required aria-describedby="confirmPasswordError"><button class="password-toggle" type="button" data-password-toggle="confirmPassword" aria-label="Show password" aria-pressed="false">Show</button></div>
+                    <small class="auth-field-error" id="confirmPasswordError"></small>
+                    <label class="terms-check" for="demoTerms"><input id="demoTerms" name="terms" type="checkbox" required aria-describedby="demoTermsError"><span>I agree to the FutureLens demo terms.</span></label>
+                    <small class="auth-field-error" id="demoTermsError"></small>
+                    <p class="auth-message" id="createAccountMessage" role="status" aria-live="polite" hidden></p>
+                    <button class="primary-btn auth-submit" type="submit">Create Account <i class="ri-arrow-right-line"></i></button>
+                </form>
+                <p class="auth-switch">Already have an account? <button type="button" data-auth-switch="signin">Sign in</button></p>
+            </div>
+            <small class="auth-security-note">Demo authentication only. Account details stay in this browser; this is not production-grade account security. Do not reuse a real password.</small>
+        </section>
+    </div>
+    <div class="auth-toast" id="authToast" role="status" aria-live="polite" hidden></div>
+
+    <!-- ================================
+     FUTURELENS ONBOARDING
+================================ -->
+
+<section class="onboarding-section step2-section" id="step2">
+
+    <div class="onboarding-container">
+
+        <!-- Progress -->
+        <div class="onboarding-progress">
+
+            <div class="progress-step completed">
+                <span>1</span>
+                <p>Goal</p>
+            </div>
+
+            <div class="progress-line completed-line"></div>
+
+            <div class="progress-step active">
+                <span>2</span>
+                <p>Current State</p>
+            </div>
+
+            <div class="progress-line"></div>
+
+            <div class="progress-step">
+                <span>3</span>
+                <p>Priorities</p>
+            </div>
+
+            <div class="progress-line"></div>
+
+            <div class="progress-step">
+                <span>4</span>
+                <p>Review</p>
+            </div>
+
+        </div>
+
+
+        <!-- Heading -->
+
+        <div class="onboarding-heading">
+
+            <span class="eyebrow">
+                STEP 02 · CURRENT STATE
+            </span>
+
+            <h1>
+                Where are you
+                <span>starting from?</span>
+            </h1>
+
+            <p>
+                Your starting point shapes the futures we simulate.
+                Tell us a little about where you are today.
+            </p>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <div class="state-form">
+
+            <!-- BASIC INFORMATION -->
+
+            <div class="form-card">
+
+                <div class="card-heading">
+
+                    <div class="heading-icon">
+                        🎓
+                    </div>
+
+                    <div>
+                        <h3>Your current situation</h3>
+                        <p>Help us understand your starting point.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="input-grid">
+
+                    <!-- Year -->
+
+                    <div class="input-group">
+
+                        <label for="currentYear">
+                            Current Year
+                        </label>
+
+                        <select id="currentYear">
+
+                            <option value="">
+                                Select your year
+                            </option>
+
+                            <option value="1">
+                                1st Year
+                            </option>
+
+                            <option value="2">
+                                2nd Year
+                            </option>
+
+                            <option value="3">
+                                3rd Year
+                            </option>
+
+                            <option value="4">
+                                4th Year
+                            </option>
+
+                            <option value="graduate">
+                                Graduate
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- CGPA -->
+
+                    <div class="input-group">
+
+                        <label for="cgpa">
+                            Current CGPA
+                        </label>
+
+                        <input
+                            type="number"
+                            id="cgpa"
+                            min="0"
+                            max="10"
+                            step="0.01"
+                            placeholder="e.g. 8.5"
+                        >
+
+                    </div>
+
+
+                    <!-- Projects -->
+
+                    <div class="input-group">
+
+                        <label for="projects">
+
+                            Projects Completed
+
+                        </label>
+
+                        <input
+                            type="number"
+                            id="projects"
+                            min="0"
+                            max="100"
+                            placeholder="e.g. 3"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SKILLS -->
+
+            <div class="form-card">
+
+                <div class="card-heading">
+
+                    <div class="heading-icon">
+                        ⚡
+                    </div>
+
+                    <div>
+
+                        <h3>Your current skills</h3>
+
+                        <p>
+                            Estimate your current level.
+                            You can always change these later.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DSA -->
+
+                <div class="skill-slider">
+
+                    <div class="skill-top">
+
+                        <span>
+                            Data Structures & Algorithms
+                        </span>
+
+                        <strong id="dsaValue">
+                            50%
+                        </strong>
+
+                    </div>
+
+                    <div class="skill-labels">
+
+                        <span>Beginner</span>
+
+                        <span>Advanced</span>
+
+                    </div>
+
+                    <input
+                        type="range"
+                        id="dsaSkill"
+                        min="0"
+                        max="100"
+                        value="50"
+                    >
+
+                </div>
+
+
+                <!-- Programming -->
+
+                <div class="skill-slider">
+
+                    <div class="skill-top">
+
+                        <span>
+                            Programming
+                        </span>
+
+                        <strong id="programmingSkillValue">
+                            50%
+                        </strong>
+
+                    </div>
+
+                    <div class="skill-labels">
+
+                        <span>Beginner</span>
+
+                        <span>Advanced</span>
+
+                    </div>
+
+                    <input
+                        type="range"
+                        id="programmingSkill"
+                        min="0"
+                        max="100"
+                        value="50"
+                    >
+
+                </div>
+
+
+                <!-- ML -->
+
+                <div class="skill-slider">
+
+                    <div class="skill-top">
+
+                        <span>
+                            Machine Learning
+                        </span>
+
+                        <strong id="mlValue">
+                            30%
+                        </strong>
+
+                    </div>
+
+                    <div class="skill-labels">
+
+                        <span>Beginner</span>
+
+                        <span>Advanced</span>
+
+                    </div>
+
+                    <input
+                        type="range"
+                        id="mlSkill"
+                        min="0"
+                        max="100"
+                        value="30"
+                    >
+
+                </div>
+
+
+                <!-- Development -->
+
+                <div class="skill-slider">
+
+                    <div class="skill-top">
+
+                        <span>
+                            Development
+                        </span>
+
+                        <strong id="developmentSkillValue">
+                            40%
+                        </strong>
+
+                    </div>
+
+                    <div class="skill-labels">
+
+                        <span>Beginner</span>
+
+                        <span>Advanced</span>
+
+                    </div>
+
+                    <input
+                        type="range"
+                        id="developmentSkill"
+                        min="0"
+                        max="100"
+                        value="40"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- TIME -->
+
+            <div class="form-card time-card">
+
+                <div class="card-heading">
+
+                    <div class="heading-icon">
+                        ⏱
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            How much time can you invest?
+                        </h3>
+
+                        <p>
+                            Your available time affects every
+                            simulated path.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="time-display">
+
+                    <span id="hoursValue">
+                        15
+                    </span>
+
+                    <small>
+                        hours / week
+                    </small>
+
+                </div>
+
+
+                <input
+                    type="range"
+                    id="hoursPerWeek"
+                    min="5"
+                    max="40"
+                    value="15"
+                >
+
+
+                <div class="time-labels">
+
+                    <span>5 hrs</span>
+
+                    <span>20 hrs</span>
+
+                    <span>40 hrs</span>
+
+                </div>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="onboarding-actions">
+
+                <button
+                    class="secondary-btn"
+                    id="backToGoal"
+                >
+                    ← Back
+                </button>
+
+
+                <button
+                    class="primary-btn"
+                    id="continueState"
+                >
+                    Continue
+                    <span>→</span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+    <!-- =========================================
+     FUTURELENS — STEP 3
+     PRIORITIES & CONSTRAINTS
+========================================= -->
+
+<section class="onboarding-section step3-section" id="step3">
+
+    <div class="onboarding-container">
+
+        <!-- Progress -->
+
+        <div class="onboarding-progress">
+
+            <div class="progress-step completed">
+                <span>1</span>
+                <p>Goal</p>
+            </div>
+
+            <div class="progress-line completed-line"></div>
+
+            <div class="progress-step completed">
+                <span>2</span>
+                <p>Current State</p>
+            </div>
+
+            <div class="progress-line completed-line"></div>
+
+            <div class="progress-step active">
+                <span>3</span>
+                <p>Priorities</p>
+            </div>
+
+            <div class="progress-line"></div>
+
+            <div class="progress-step">
+                <span>4</span>
+                <p>Review</p>
+            </div>
+
+        </div>
+
+
+        <!-- Heading -->
+
+        <div class="onboarding-heading">
+
+            <span class="eyebrow">
+                STEP 03 · YOUR PREFERENCES
+            </span>
+
+            <h1>
+                What matters
+                <span>most to you?</span>
+            </h1>
+
+            <p>
+                Every path has trade-offs. Tell FutureLens
+                what you care about so we can create scenarios
+                that actually fit your goals.
+            </p>
+
+        </div>
+
+
+        <!-- =====================================
+             PRIORITIES
+        ====================================== -->
+
+        <div class="form-card">
+
+            <div class="card-heading">
+
+                <div class="heading-icon">
+                    🎯
+                </div>
+
+                <div>
+                    <h3>What do you want to optimize for?</h3>
+
+                    <p>
+                        Choose up to 3 priorities.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="selection-grid" id="priorityGrid">
+
+
+                <button
+                    class="selection-card"
+                    data-priority="internship"
+                >
+
+                    <span class="selection-icon">💼</span>
+
+                    <span class="selection-content">
+
+                        <strong>Internship</strong>
+
+                        <small>
+                            Become industry-ready
+                        </small>
+
+                    </span>
+
+                    <span class="selection-check">
+                        ✓
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="selection-card"
+                    data-priority="technical-skills"
+                >
+
+                    <span class="selection-icon">🧠</span>
+
+                    <span class="selection-content">
+
+                        <strong>Technical Skills</strong>
+
+                        <small>
+                            Build stronger fundamentals
+                        </small>
+
+                    </span>
+
+                    <span class="selection-check">
+                        ✓
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="selection-card"
+                    data-priority="projects"
+                >
+
+                    <span class="selection-icon">🚀</span>
+
+                    <span class="selection-content">
+
+                        <strong>Projects</strong>
+
+                        <small>
+                            Build a strong portfolio
+                        </small>
+
+                    </span>
+
+                    <span class="selection-check">
+                        ✓
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="selection-card"
+                    data-priority="research"
+                >
+
+                    <span class="selection-icon">🔬</span>
+
+                    <span class="selection-content">
+
+                        <strong>Research</strong>
+
+                        <small>
+                            Explore research opportunities
+                        </small>
+
+                    </span>
+
+                    <span class="selection-check">
+                        ✓
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="selection-card"
+                    data-priority="higher-studies"
+                >
+
+                    <span class="selection-icon">🎓</span>
+
+                    <span class="selection-content">
+
+                        <strong>Higher Studies</strong>
+
+                        <small>
+                            Prepare for future education
+                        </small>
+
+                    </span>
+
+                    <span class="selection-check">
+                        ✓
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="selection-card"
+                    data-priority="competitive-programming"
+                >
+
+                    <span class="selection-icon">🏆</span>
+
+                    <span class="selection-content">
+
+                        <strong>Competitive Programming</strong>
+
+                        <small>
+                            Improve DSA & problem solving
+                        </small>
+
+                    </span>
+
+                    <span class="selection-check">
+                        ✓
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="selection-card"
+                    data-priority="entrepreneurship"
+                >
+
+                    <span class="selection-icon">💡</span>
+
+                    <span class="selection-content">
+
+                        <strong>Entrepreneurship</strong>
+
+                        <small>
+                            Build and launch something
+                        </small>
+
+                    </span>
+
+                    <span class="selection-check">
+                        ✓
+                    </span>
+
+                </button>
+
+            </div>
+
+            <div
+                class="selection-counter"
+                id="priorityCounter"
+            >
+                0 / 3 selected
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             TRADE OFFS
+        ====================================== -->
+
+        <div class="form-card">
+
+            <div class="card-heading">
+
+                <div class="heading-icon">
+                    ⚖️
+                </div>
+
+                <div>
+
+                    <h3>
+                        What are you willing to trade off?
+                    </h3>
+
+                    <p>
+                        Every strategy requires choices.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="option-list">
+
+                <label class="check-option">
+
+                    <input
+                        type="checkbox"
+                        name="tradeoff"
+                        value="social"
+                    >
+
+                    <span class="custom-check">
+                        ✓
+                    </span>
+
+                    <span>
+                        Social activities
+                    </span>
+
+                </label>
+
+
+                <label class="check-option">
+
+                    <input
+                        type="checkbox"
+                        name="tradeoff"
+                        value="entertainment"
+                    >
+
+                    <span class="custom-check">
+                        ✓
+                    </span>
+
+                    <span>
+                        Entertainment / free time
+                    </span>
+
+                </label>
+
+
+                <label class="check-option">
+
+                    <input
+                        type="checkbox"
+                        name="tradeoff"
+                        value="coursework"
+                    >
+
+                    <span class="custom-check">
+                        ✓
+                    </span>
+
+                    <span>
+                        Other coursework
+                    </span>
+
+                </label>
+
+
+                <label class="check-option">
+
+                    <input
+                        type="checkbox"
+                        name="tradeoff"
+                        value="competitive-programming"
+                    >
+
+                    <span class="custom-check">
+                        ✓
+                    </span>
+
+                    <span>
+                        Competitive programming
+                    </span>
+
+                </label>
+
+
+                <label class="check-option">
+
+                    <input
+                        type="checkbox"
+                        name="tradeoff"
+                        value="nothing"
+                        id="balancedTradeoff"
+                    >
+
+                    <span class="custom-check">
+                        ✓
+                    </span>
+
+                    <span>
+                        Nothing — I want a balanced path
+                    </span>
+
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             CONSISTENCY
+        ====================================== -->
+
+        <div class="form-card">
+
+            <div class="card-heading">
+
+                <div class="heading-icon">
+                    🔁
+                </div>
+
+                <div>
+
+                    <h3>
+                        How consistent can you be?
+                    </h3>
+
+                    <p>
+                        Consistency helps us model realistic progress.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="consistency-display">
+
+                <strong id="consistencyValue">
+                    70%
+                </strong>
+
+                <span id="consistencyLabel">
+                    Usually consistent
+                </span>
+
+            </div>
+
+
+            <input
+                type="range"
+                id="consistencySlider"
+                min="20"
+                max="100"
+                value="70"
+                step="1"
+            >
+
+
+            <div class="range-labels">
+
+                <span>
+                    Occasional
+                </span>
+
+                <span>
+                    Very consistent
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             RISK PREFERENCE
+        ====================================== -->
+
+        <div class="form-card">
+
+            <div class="card-heading">
+
+                <div class="heading-icon">
+                    🚦
+                </div>
+
+                <div>
+
+                    <h3>
+                        How do you approach uncertain paths?
+                    </h3>
+
+                    <p>
+                        This influences the types of scenarios we explore.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="risk-grid">
+
+
+                <button
+                    class="risk-card"
+                    data-risk="safe"
+                >
+
+                    <span class="risk-icon">
+                        🛡️
+                    </span>
+
+                    <strong>
+                        Safe & Steady
+                    </strong>
+
+                    <small>
+                        Prefer predictable progress
+                        with lower uncertainty.
+                    </small>
+
+                </button>
+
+
+                <button
+                    class="risk-card active"
+                    data-risk="balanced"
+                >
+
+                    <span class="risk-icon">
+                        ⚖️
+                    </span>
+
+                    <strong>
+                        Balanced
+                    </strong>
+
+                    <small>
+                        Comfortable with some
+                        experimentation.
+                    </small>
+
+                </button>
+
+
+                <button
+                    class="risk-card"
+                    data-risk="high-growth"
+                >
+
+                    <span class="risk-icon">
+                        🚀
+                    </span>
+
+                    <strong>
+                        High Growth
+                    </strong>
+
+                    <small>
+                        Willing to explore
+                        ambitious paths.
+                    </small>
+
+                </button>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             CONSTRAINTS
+        ====================================== -->
+
+        <div class="form-card">
+
+            <div class="card-heading">
+
+                <div class="heading-icon">
+                    🔒
+                </div>
+
+                <div>
+
+                    <h3>
+                        Are there any constraints?
+                    </h3>
+
+                    <p>
+                        These help us avoid unrealistic scenarios.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="constraint-grid">
+
+
+                <label class="constraint-card">
+
+                    <input
+                        type="checkbox"
+                        name="constraint"
+                        value="limited-time"
+                    >
+
+                    <span>⏱️</span>
+
+                    <strong>
+                        Limited time
+                    </strong>
+
+                </label>
+
+
+                <label class="constraint-card">
+
+                    <input
+                        type="checkbox"
+                        name="constraint"
+                        value="college-workload"
+                    >
+
+                    <span>📚</span>
+
+                    <strong>
+                        College workload
+                    </strong>
+
+                </label>
+
+
+                <label class="constraint-card">
+
+                    <input
+                        type="checkbox"
+                        name="constraint"
+                        value="limited-budget"
+                    >
+
+                    <span>💰</span>
+
+                    <strong>
+                        Limited budget
+                    </strong>
+
+                </label>
+
+
+                <label class="constraint-card">
+
+                    <input
+                        type="checkbox"
+                        name="constraint"
+                        value="exams"
+                    >
+
+                    <span>📝</span>
+
+                    <strong>
+                        Upcoming exams
+                    </strong>
+
+                </label>
+
+
+                <label class="constraint-card">
+
+                    <input
+                        type="checkbox"
+                        name="constraint"
+                        value="weak-foundation"
+                    >
+
+                    <span>🧩</span>
+
+                    <strong>
+                        Weak foundation
+                    </strong>
+
+                </label>
+
+
+                <label class="constraint-card">
+
+                    <input
+                        type="checkbox"
+                        name="constraint"
+                        value="no-experience"
+                    >
+
+                    <span>🌱</span>
+
+                    <strong>
+                        No experience yet
+                    </strong>
+
+                </label>
+
+
+                <label class="constraint-card no-constraint">
+
+                    <input
+                        type="checkbox"
+                        name="constraint"
+                        value="none"
+                    >
+
+                    <span>✨</span>
+
+                    <strong>
+                        No major constraints
+                    </strong>
+
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             OPTIONAL NOTES
+        ====================================== -->
+
+        <div class="form-card">
+
+            <div class="card-heading">
+
+                <div class="heading-icon">
+                    💬
+                </div>
+
+                <div>
+
+                    <h3>
+                        Anything else we should know?
+                    </h3>
+
+                    <p>
+                        Optional — add anything that may affect your decisions.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <textarea
+                id="additionalNotes"
+                class="notes-input"
+                placeholder="Example: I have semester exams in December and want to apply for internships before summer..."
+                rows="4"
+            ></textarea>
+
+        </div>
+
+
+        <!-- =====================================
+             LIVE PROFILE
+        ====================================== -->
+
+        <div class="decision-profile">
+
+            <div class="profile-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        YOUR DECISION PROFILE
+                    </span>
+
+                    <h3>
+                        Here's what FutureLens understands
+                    </h3>
+
+                </div>
+
+                <span class="profile-status">
+                    LIVE
+                </span>
+
+            </div>
+
+
+            <div class="profile-content">
+
+                <div class="profile-item">
+
+                    <span>
+                        Primary focus
+                    </span>
+
+                    <strong id="profilePriority">
+                        Not selected
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <span>
+                        Also prioritizing
+                    </span>
+
+                    <strong id="profileOtherPriorities">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <span>
+                        Trade-offs
+                    </span>
+
+                    <strong id="profileTradeoffs">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <span>
+                        Consistency
+                    </span>
+
+                    <strong id="profileConsistency">
+                        70%
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <span>
+                        Risk approach
+                    </span>
+
+                    <strong id="profileRisk">
+                        Balanced
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <span>
+                        Constraints
+                    </span>
+
+                    <strong id="profileConstraints">
+                        None selected
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="onboarding-actions">
+
+            <button
+                class="secondary-btn"
+                id="backToState"
+            >
+                ← Back
+            </button>
+
+
+            <button
+                class="primary-btn"
+                id="continuePriorities"
+            >
+                Continue
+                <span>→</span>
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- =====================================================
+     STEP 4 — REVIEW & CONFIRM
+===================================================== -->
+
+<section class="onboarding-section step4-section" id="step4">
+
+    <div class="onboarding-container">
+
+        <!-- Progress -->
+        <div class="step-progress">
+
+            <div class="progress-step completed">
+                <span>01</span>
+                <small>Goal</small>
+            </div>
+
+            <div class="progress-line completed"></div>
+
+            <div class="progress-step completed">
+                <span>02</span>
+                <small>Current State</small>
+            </div>
+
+            <div class="progress-line completed"></div>
+
+            <div class="progress-step completed">
+                <span>03</span>
+                <small>Priorities</small>
+            </div>
+
+            <div class="progress-line active"></div>
+
+            <div class="progress-step active">
+                <span>04</span>
+                <small>Review</small>
+            </div>
+
+        </div>
+
+
+        <!-- Heading -->
+        <div class="step-heading">
+
+            <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                FINAL CHECK
+            </div>
+
+            <h1>
+                Here's your
+                <span>starting point.</span>
+            </h1>
+
+            <p>
+                FutureLens will use these inputs to explore
+                different paths and simulate what could happen
+                under each one.
+            </p>
+
+        </div>
+
+
+        <!-- Main Review Grid -->
+        <div class="review-grid">
+
+
+            <!-- =========================================
+                 GOAL CARD
+            ========================================== -->
+
+            <div class="review-card review-goal-card">
+
+                <div class="review-card-header">
+
+                    <div class="review-icon purple-icon">
+                        <i class="ri-focus-3-line"></i>
+                    </div>
+
+                    <div>
+                        <span class="review-label">
+                            YOUR GOAL
+                        </span>
+
+                        <h3>Where you're heading</h3>
+                    </div>
+
+                </div>
+
+
+                <div class="review-goal-content">
+
+                    <div class="review-main-value"
+                         id="reviewGoal">
+                        Not specified
+                    </div>
+
+                    <div class="review-meta-row">
+
+                        <div class="review-meta">
+
+                            <span>
+                                <i class="ri-calendar-line"></i>
+                                Timeline
+                            </span>
+
+                            <strong id="reviewTimeline">
+                                Not specified
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 CURRENT STATE
+            ========================================== -->
+
+            <div class="review-card">
+
+                <div class="review-card-header">
+
+                    <div class="review-icon blue-icon">
+                        <i class="ri-user-settings-line"></i>
+                    </div>
+
+                    <div>
+                        <span class="review-label">
+                            CURRENT STATE
+                        </span>
+
+                        <h3>Where you are now</h3>
+                    </div>
+
+                </div>
+
+
+                <div class="state-review-grid">
+
+                    <div class="state-review-item">
+
+                        <span>Current Year</span>
+
+                        <strong id="reviewYear">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="state-review-item">
+
+                        <span>CGPA</span>
+
+                        <strong id="reviewCgpa">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="state-review-item">
+
+                        <span>Projects</span>
+
+                        <strong id="reviewProjects">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="state-review-item">
+
+                        <span>Available Time</span>
+
+                        <strong id="reviewHours">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="review-divider"></div>
+
+
+                <div class="review-section-title">
+                    Current skill levels
+                </div>
+
+                <div class="skill-summary"
+                     id="reviewSkills">
+
+                    DSA 50% · Programming 50% ·
+                    ML 30% · Development 40%
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 PRIORITIES
+            ========================================== -->
+
+            <div class="review-card">
+
+                <div class="review-card-header">
+
+                    <div class="review-icon cyan-icon">
+                        <i class="ri-star-line"></i>
+                    </div>
+
+                    <div>
+                        <span class="review-label">
+                            PRIORITIES
+                        </span>
+
+                        <h3>What matters most</h3>
+                    </div>
+
+                </div>
+
+
+                <div class="review-detail-list">
+
+                    <div class="review-detail-item">
+
+                        <span>Primary focus</span>
+
+                        <strong id="reviewPriorities">
+                            None
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 BEHAVIOUR & TRADE-OFFS
+            ========================================== -->
+
+            <div class="review-card">
+
+                <div class="review-card-header">
+
+                    <div class="review-icon pink-icon">
+                        <i class="ri-scales-3-line"></i>
+                    </div>
+
+                    <div>
+                        <span class="review-label">
+                            DECISION STYLE
+                        </span>
+
+                        <h3>Your trade-offs</h3>
+                    </div>
+
+                </div>
+
+
+                <div class="review-detail-list">
+
+                    <div class="review-detail-item">
+
+                        <span>Trade-offs</span>
+
+                        <strong id="reviewTradeoffs">
+                            None
+                        </strong>
+
+                    </div>
+
+
+                    <div class="review-detail-item">
+
+                        <span>Consistency</span>
+
+                        <strong id="reviewConsistency">
+                            70%
+                        </strong>
+
+                    </div>
+
+
+                    <div class="review-detail-item">
+
+                        <span>Risk approach</span>
+
+                        <strong id="reviewRisk">
+                            ⚖️ Balanced
+                        </strong>
+
+                    </div>
+
+
+                    <div class="review-detail-item">
+
+                        <span>Constraints</span>
+
+                        <strong id="reviewConstraints">
+                            None
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 ADDITIONAL NOTES
+            ========================================== -->
+
+            <div class="review-card review-notes-card">
+
+                <div class="review-card-header">
+
+                    <div class="review-icon violet-icon">
+                        <i class="ri-sticky-note-line"></i>
+                    </div>
+
+                    <div>
+                        <span class="review-label">
+                            ADDITIONAL CONTEXT
+                        </span>
+
+                        <h3>Anything else?</h3>
+                    </div>
+
+                </div>
+
+
+                <div class="review-notes"
+                     id="reviewNotes">
+
+                    No additional notes
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================================
+             SIMULATION MESSAGE
+        ========================================== -->
+
+        <div class="simulation-notice">
+
+            <div class="notice-icon">
+                <i class="ri-sparkling-2-line"></i>
+            </div>
+
+            <div class="notice-content">
+
+                <strong>
+                    Ready to explore your possible futures?
+                </strong>
+
+                <p>
+                    FutureLens will generate multiple
+                    strategies from your current state,
+                    simulate their potential trajectories,
+                    and show you the trade-offs between them.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================================
+             ACTIONS
+        ========================================== -->
+
+        <div class="step-actions">
+
+            <button
+                class="secondary-btn"
+                id="backFromReview"
+                type="button">
+
+                <i class="ri-arrow-left-line"></i>
+
+                Back
+
+            </button>
+
+
+            <button
+                class="primary-btn generate-futures-btn"
+                id="generateFutures"
+                type="button">
+
+                <span>
+                    ✨
+                </span>
+
+                Generate My Futures
+
+                <i class="ri-arrow-right-line"></i>
+
+            </button>
+
+        </div>
+
+        <div class="simulation-progress" id="simulationProgress" role="status" aria-live="polite" hidden>
+            <span class="simulation-progress-indicator" aria-hidden="true"></span>
+            <div><strong>FutureLens is running your simulation</strong><p>The server runs context, scenario selection, modeling, and analysis in sequence. Stage results will appear with your future map.</p>
+                <ol class="simulation-progress-stages" id="simulationProgressStages">
+                    <li class="workflow-current" aria-current="step"><strong>Workflow request in progress</strong><small>Waiting for the backend workflow result</small></li>
+                    <li><strong>Context Agent</strong><small>Pending backend result</small></li>
+                    <li><strong>Scenario Agent</strong><small>Pending backend result</small></li>
+                    <li><strong>Simulation Engine</strong><small>Pending backend result</small></li>
+                    <li><strong>Analysis Agent</strong><small>Pending backend result</small></li>
+                </ol>
+            </div>
+        </div>
+
+
+        <!-- Disclaimer -->
+
+        <div class="simulation-disclaimer">
+
+            <i class="ri-information-line"></i>
+
+            <span>
+                FutureLens generates model-based scenarios
+                from your inputs. These are possibilities,
+                not guaranteed predictions.
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================
+     FUTURE TREE + SCENARIO COMPARISON
+========================================= -->
+<section class="future-explorer-section onboarding-section" id="futureExplorer" aria-labelledby="futureExplorerTitle">
+    <div class="onboarding-container">
+        <div class="future-explorer-heading">
+            <span class="eyebrow"><i class="ri-git-branch-line"></i> YOUR POSSIBLE FUTURES</span>
+            <h2 id="futureExplorerTitle">Explore your modeled decision space</h2>
+            <p>Your current state creates several model-based paths. Select a branch to see what drives it.</p>
+            <button class="secondary-btn reset-journey-btn" id="resetJourney" type="button"><i class="ri-refresh-line"></i> Start a new simulation</button>
+        </div>
+
+        <div class="future-explorer-empty" id="futureExplorerEmpty">
+            <i class="ri-git-branch-line"></i>
+            <div><strong>Your future map is waiting.</strong><span>Complete your profile and generate futures to explore different modeled paths.</span><button class="secondary-btn" id="emptyGenerateFutures" type="button">Review and generate futures <i class="ri-arrow-right-line"></i></button></div>
+        </div>
+
+        <div class="future-explorer-content" id="futureExplorerContent" hidden>
+            <div class="tree-guidance" id="treeGuidance"><i class="ri-cursor-line"></i> Click a path to explore it</div>
+            <div class="future-tree-scroll" tabindex="0" aria-label="Interactive future tree">
+                <div class="model-future-tree" id="futureTree"></div>
+            </div>
+
+            <div class="scenario-detail-panel" id="scenarioDetailPanel" aria-live="polite"></div>
+
+            <section class="what-if-panel" id="whatIfPanel" aria-labelledby="whatIfTitle">
+                <div class="what-if-heading">
+                    <div>
+                        <span class="eyebrow"><i class="ri-sliders-3-line"></i> WHAT-IF SIMULATOR</span>
+                        <h3 id="whatIfTitle">Change a choice. Re-model this path.</h3>
+                        <p>Adjust your weekly time, consistency, or project count. FutureLens reruns the deterministic scenario model with the same goal and path.</p>
+                    </div>
+                    <span class="what-if-model-badge"><i class="ri-shield-check-line"></i> Model-based, not a prediction</span>
+                </div>
+
+                <div class="what-if-controls" aria-label="What-if profile controls">
+                    <label class="what-if-control" for="whatIfHours">
+                        <span><strong>Hours per week</strong><output id="whatIfHoursValue" for="whatIfHours">8</output></span>
+                        <input id="whatIfHours" type="range" min="5" max="40" step="1" value="8">
+                        <span class="what-if-range"><small>5 hrs</small><small>40 hrs</small></span>
+                    </label>
+                    <label class="what-if-control" for="whatIfConsistency">
+                        <span><strong>Consistency</strong><output id="whatIfConsistencyValue" for="whatIfConsistency">72%</output></span>
+                        <input id="whatIfConsistency" type="range" min="0" max="100" step="1" value="72">
+                        <span class="what-if-range"><small>0%</small><small>100%</small></span>
+                    </label>
+                    <div class="what-if-control what-if-project-control">
+                        <label for="whatIfProjects"><strong>Current projects</strong></label>
+                        <div class="project-stepper">
+                            <button id="whatIfProjectsDown" type="button" aria-label="Decrease project count">−</button>
+                            <input id="whatIfProjects" type="number" min="0" max="100" step="1" value="2" inputmode="numeric" aria-label="Current project count">
+                            <button id="whatIfProjectsUp" type="button" aria-label="Increase project count">+</button>
+                        </div>
+                        <small>From your current portfolio</small>
+                    </div>
+                </div>
+
+                <p class="what-if-status" id="whatIfStatus" role="status" aria-live="polite">Showing the current model. Change a value to compare another modeled scenario.</p>
+
+                <div class="what-if-comparison" id="whatIfComparison" aria-live="polite">
+                    <article class="what-if-model-card">
+                        <span class="what-if-card-label">CURRENT MODEL</span>
+                        <strong class="what-if-readiness" id="whatIfCurrentReadiness">—</strong>
+                        <small>Modeled readiness / 100</small>
+                        <dl id="whatIfCurrentMetrics"></dl>
+                    </article>
+                    <div class="what-if-delta-mark" aria-hidden="true"><i class="ri-arrow-left-right-line"></i></div>
+                    <article class="what-if-model-card what-if-model-next">
+                        <span class="what-if-card-label">WHAT-IF MODEL</span>
+                        <strong class="what-if-readiness" id="whatIfNextReadiness">—</strong>
+                        <small>Same path, adjusted inputs</small>
+                        <dl id="whatIfNextMetrics"></dl>
+                    </article>
+                </div>
+
+                <div class="what-if-change-summary" aria-label="Modeled change from current to what-if">
+                    <span class="what-if-card-label">MODELED CHANGE</span>
+                    <div id="whatIfChanges" class="what-if-change-grid"></div>
+                </div>
+
+                <div class="what-if-explanation">
+                    <div><span class="what-if-card-label">WHY DID IT CHANGE?</span><p id="whatIfExplanation">The model keeps your chosen path and goal constant, then recalculates from the changed inputs.</p></div>
+                    <details>
+                        <summary>Model assumptions</summary>
+                        <ul id="whatIfAssumptions"></ul>
+                    </details>
+                </div>
+
+                <div class="what-if-actions">
+                    <button class="primary-btn" id="applyWhatIf" type="button" disabled><i class="ri-check-line"></i> Apply This Scenario</button>
+                    <button class="secondary-btn" id="resetWhatIf" type="button"><i class="ri-reset-left-line"></i> Reset to Current</button>
+                    <span id="whatIfAppliedBadge" class="applied-what-if-badge" hidden><i class="ri-check-line"></i> Applied modeled what-if</span>
+                </div>
+                <p class="what-if-footnote">Project work is represented by a capped portfolio signal in the deterministic model. Changing inputs does not call the AI analysis provider or guarantee real-world outcomes.</p>
+            </section>
+
+            <section class="demo-mode-banner" id="demoModeBanner" hidden aria-live="polite">
+                <div><span class="eyebrow"><i class="ri-presentation-line"></i> DEMO MODE</span><strong id="demoBannerTitle">Explore this fictional student profile, then change the modeled inputs.</strong><p id="demoStageCopy">FutureLens is using its regular onboarding, agent workflow, and simulation engine.</p></div>
+                <div class="demo-mode-actions">
+                    <details class="judge-talking-points"><summary>Presenter notes</summary><p><strong>Why this matters:</strong> This is a multi-stage decision-support workflow, not a single chatbot answer. It creates scenarios, shows trade-offs, and lets a student test a controllable choice.</p><p><strong>Model boundary:</strong> These are conditional scenarios based on stated assumptions, not predictions or guarantees.</p></details>
+                    <button class="secondary-btn" id="resetDemo" type="button">Reset Demo</button>
+                    <button class="secondary-btn" id="exitDemo" type="button">Exit Demo</button>
+                </div>
+            </section>
+
+            <section class="decision-briefing" id="decisionBriefing" aria-live="polite">
+                <div class="decision-briefing-head">
+                    <div>
+                        <span class="eyebrow"><i class="ri-compass-3-line"></i> STUDENT GUIDANCE</span>
+                        <h3>Turn this modeled future into a real next step</h3>
+                    </div>
+                    <span class="guidance-badge" id="guidanceBadge">Model-based guidance</span>
+                </div>
+                <div class="guidance-grid">
+                    <article class="guidance-card guidance-now">
+                        <span class="guidance-icon"><i class="ri-flashlight-line"></i></span>
+                        <div><small>DO THIS NEXT</small><strong id="guidanceNow">Select a future path to get a tailored next step.</strong><p id="guidanceWhy">FutureLens will connect your chosen path to a small, realistic action.</p></div>
+                    </article>
+                    <article class="guidance-card">
+                        <span class="guidance-icon"><i class="ri-calendar-check-line"></i></span>
+                        <div><small>7-DAY EXPERIMENT</small><strong id="guidanceWeek">Make one measurable move this week.</strong><p id="guidanceWeekDetail">Keep the experiment small enough to finish and review.</p></div>
+                    </article>
+                    <article class="guidance-card">
+                        <span class="guidance-icon"><i class="ri-eye-line"></i></span>
+                        <div><small>WATCH</small><strong id="guidanceWatch">Track the assumption that matters most.</strong><p id="guidanceWatchDetail">If your time, consistency or priorities change, the modeled outcome can change too.</p></div>
+                    </article>
+                </div>
+                <div class="guidance-footer"><i class="ri-information-line"></i><span>Use this as a decision aid—not a promise about your actual future. Re-run the simulation when your situation changes.</span></div>
+            </section>
+
+            <section class="comparison-section" aria-labelledby="comparisonTitle">
+                <div class="comparison-heading"><div><span>SCENARIO COMPARISON</span><h3 id="comparisonTitle">Compare futures</h3></div><p>Compare modeled differences, not winners.</p></div>
+                <div class="comparison-controls" id="comparisonControls" aria-label="Choose scenarios to compare"></div>
+                <div class="comparison-table-scroll"><table class="comparison-table" id="comparisonTable"></table></div>
+                <div class="comparison-differences" id="comparisonDifferences"></div>
+            </section>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================
+     FUTURELENS INTELLIGENCE
+========================================= -->
+<section class="ai-insights-section onboarding-section" id="aiInsights" aria-live="polite">
+    <div class="onboarding-container">
+        <div class="ai-insights-heading">
+            <span class="eyebrow"><i class="ri-sparkling-2-line"></i> FUTURELENS INTELLIGENCE</span>
+            <h2>Why these futures differ</h2>
+            <p>AI interprets your model-based scenarios; it does not predict your actual future.</p>
+        </div>
+
+        <div class="ai-analysis-status" id="aiAnalysisStatus">
+            Generate your futures to compare the assumptions and trade-offs behind them.
+        </div>
+
+        <div class="ai-loading" id="aiAnalysisLoading" hidden>
+            <i class="ri-loader-4-line"></i>
+            <div><strong>Analyzing your scenarios…</strong><span>Comparing trade-offs, assumptions, and modeled risks</span></div>
+        </div>
+
+        <ol class="workflow-steps" id="workflowSteps" aria-label="FutureLens agent workflow" hidden></ol>
+
+        <div class="ai-analysis-content" id="aiAnalysisContent" hidden>
+            <article class="ai-summary-card"><span>MODEL-BASED INTERPRETATION</span><p id="aiSummary"></p></article>
+            <div class="ai-grid" id="aiScenarioAnalysis"></div>
+            <div class="ai-grid ai-topic-grid">
+                <article class="ai-topic-card"><h3><i class="ri-scales-3-line"></i> Key trade-offs</h3><ul id="aiTradeoffs"></ul></article>
+                <article class="ai-topic-card"><h3><i class="ri-shield-check-line"></i> Risks</h3><ul id="aiRisks"></ul></article>
+                <article class="ai-topic-card"><h3><i class="ri-seedling-line"></i> Opportunities</h3><ul id="aiOpportunities"></ul></article>
+                <article class="ai-topic-card"><h3><i class="ri-file-list-3-line"></i> Assumptions</h3><ul id="aiAssumptions"></ul></article>
+                <article class="ai-topic-card"><h3><i class="ri-radar-line"></i> What could change the result?</h3><ul id="aiSensitivity"></ul></article>
+                <article class="ai-topic-card ai-actions-card"><h3><i class="ri-route-line"></i> Next actions</h3><ol id="aiNextActions"></ol></article>
+                <article class="ai-topic-card ai-actions-card profile-action-plan" id="profileActionPlan" hidden>
+                    <h3><i class="ri-calendar-check-line"></i> A practical starter plan</h3>
+                    <p>Rule-based suggestions from your profile, available even when AI analysis is offline.</p>
+                    <strong>Next 7 days</strong><ul id="planWeek"></ul>
+                    <strong>Next 30 days</strong><ul id="planMonth"></ul>
+                    <strong>Try this experiment</strong><ul id="planExperiment"></ul>
+                    <strong>Watch-outs</strong><ul id="planRisks"></ul>
+                </article>
+            </div>
+        </div>
+
+        <button class="secondary-btn ai-retry-btn" id="retryAiAnalysis" type="button" hidden>
+            <i class="ri-refresh-line"></i> Retry AI analysis
+        </button>
+    </div>
+</section>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
