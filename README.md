@@ -49,6 +49,28 @@ The result is a way to inspect alternative modeled paths, compare their trade-of
 5. Change supported What-If inputs, such as hours, consistency, or projects, and recalculate.
 6. Review why paths differ, the assumptions and uncertainty involved, and suggested next actions.
 
+## 🖥️ Product Screenshots
+
+### Landing Page
+
+![FutureLens Landing Page](screenshot/landing.png)
+
+### Decision Setup
+
+![FutureLens Decision Setup](screenshot/decision.png)
+
+### Future Explorer
+
+![FutureLens Future Explorer](screenshot/future_explorer1.png) (screenshot/future_explorer2.png) 
+
+### AI Decision Analysis
+
+![FutureLens AI Analysis](screenshot/AI_analysis.png)
+
+### After Generate future
+
+![FutureLens Generate Future](screenshot/generate_future1.png) (screenshot/generate_future2.png) 
+
 ## Agentic workflow and architecture
 
 The server runs a visible sequence of context preparation, scenario selection, deterministic simulation, and optional scenario analysis. The Context and Scenario Agents are implemented as deterministic JavaScript components; the Analysis Agent calls an AI provider when configured.
